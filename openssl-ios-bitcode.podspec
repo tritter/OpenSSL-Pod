@@ -50,7 +50,7 @@ Pod::Spec.new do |s|
       echo "Building openssl-${VERSION} for ${PLATFORM} ${SDKVERSION} ${ARCH}"
       echo "Please stand by..."
 
-      export CC="${DEVELOPER}/usr/bin/gcc -arch ${ARCH} -miphoneos-version-min=${MIN_SDKVERSION}"
+      export CC="${DEVELOPER}/usr/bin/gcc -arch ${ARCH} -miphoneos-version-min=${MIN_SDKVERSION} -fembed-bitcode"
       mkdir -p "${CURRENTPATH}/bin/${PLATFORM}${SDKVERSION}-${ARCH}.sdk"
       LOG="${CURRENTPATH}/bin/${PLATFORM}${SDKVERSION}-${ARCH}.sdk/build-openssl-${VERSION}.log"
 
