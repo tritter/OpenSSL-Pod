@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
     BASEPATH="${PWD}"
     CURRENTPATH="${TMPDIR}/openssl"
-    ARCHS="i386 x86_64 armv7 arm64"
+    ARCHS="i386 x86_64 armv7 arm64 arm64_m1"
     DEVELOPER=`xcode-select -print-path`
 
     mkdir -p "${CURRENTPATH}"
@@ -28,13 +28,17 @@ Pod::Spec.new do |s|
     do
       CONFIGURE_FOR="iphoneos-cross"
 
-      if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ] ;
+      if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ] || [ "${ARCH}" == "arm64_m1" ] ;
       then
         PLATFORM="iPhoneSimulator"
         if [ "${ARCH}" == "x86_64" ] ;
         then
           CONFIGURE_FOR="darwin64-x86_64-cc"
         fi
+        if [ "${ARCH}" == "arm64_m1" ] ;
+        then
+          ARCH="arm64"
+        fi 
       else
         sed -ie "s!static volatile sig_atomic_t intr_signal;!static volatile intr_signal;!" "crypto/ui/ui_openssl.c"
         PLATFORM="iPhoneOS"
